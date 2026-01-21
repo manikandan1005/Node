@@ -11,4 +11,5 @@ setTimeout(()=>
     // used to get the current directory name
     console.log(__dirname);
     // use to see the fail name 
-    console.log(__filename)
+    console.log(__filename);
+    
