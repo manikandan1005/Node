@@ -1,27 +1,44 @@
 import express from 'express'
 
 const app=express();
+// Middleware for the change the json to data
+app.use(express.json())
 const port=3000;
 const user=[
-    { name: "Mani", age: 22, city: "Chennai" },
-  { name: "Arun", age: 24, city: "Coimbatore" },
-  { name: "Karthik", age: 23, city: "Madurai" },
-  { name: "Priya", age: 21, city: "Trichy" },
-  { name: "Divya", age: 25, city: "Salem" },
-  { name: "Vijay", age: 26, city: "Erode" }
+    {id:1, name: "Mani", age: 22, city: "Chennai" },
+    {id:2, name: "Arun", age: 24, city: "Coimbatore" },
+    {id:3, name: "Karthik", age: 23, city: "Madurai" },
+    {id:4, name: "Priya", age: 21, city: "Trichy" },
+    {id:5, name: "Divya", age: 25, city: "Salem" },
+    {id:6, name: "Vijay", age: 26, city: "Erode" }
 ]
+const dummyUser=[
+    {id:1, name: "Mani", age: 22, city: "Chennai" },
+    {id:2, name: "Arun", age: 24, city: "Coimbatore" },
+    {id:3, name: "Karthik", age: 23, city: "Madurai" },
+    {id:4, name: "Priya", age: 21, city: "Trichy" },
+    {id:5, name: "Divya", age: 25, city: "Salem" },
+    {id:6, name: "Vijay", age: 26, city: "Erode" }
+];
 app.listen(port,(req,res)=>{
     console.log(`server start running at port ${port}`)
+})
+app.get('/',(req,res)=>{
+    res.send({message:'root'})
 })
 
 app.get('/api/user',(req,res)=>{
     res.send(user);
 })
-// madial ware for the change the json to data for post request
-app.use(express.json())
+// Middleware for the change the json to data 
+
 app.post('/api/user',(req,res)=>{
     let newUser=req.body;
-    console.log(newUser);
-    res.send({message:'new user data get '})
-    user.push(newUser)
+    newUser.id=user.length+1;
+    // console.log(req);
+    console.log(newUser)
+    res.status(201).send({message:'new user data get '})
+    
+    user.push(newUser);
+    dummyUser.push({...newUser})
 })
