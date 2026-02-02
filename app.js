@@ -30,6 +30,25 @@ app.get('/',(req,res)=>{
 app.get('/api/user',(req,res)=>{
     res.send(user);
 })
+
+app.get('/api/user/:id',(req,res)=>{
+    console.log(req.params);
+    const id=parseInt(req.params.id)
+    console.log(id)
+    // check the id id number or not
+    if (isNaN(id)){
+       return res.status(400).send({message:'bad request invalide id'})
+    }
+    const dt=dummyUser.find((i)=>i.id===id)
+    console.log(dt);
+
+    // check the id is have in list or not
+    if (dt){
+        return res.send(dt)
+    }
+    
+    return res.send({message:'user not found'})
+})
 // Middleware for the change the json to data 
 
 app.post('/api/user',(req,res)=>{
